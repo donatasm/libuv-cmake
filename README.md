@@ -6,7 +6,7 @@ This repository contains a CMakeLists.txt capable of building libuv without requ
 
 It is currently known to work on Mac OS X, Linux and Solaris, though it may also work on Windows (untested as I don't have easy access to a Windows box).
 
-The position from the UV maintainers appears to be that there will not be a supported CMake build added. I will try to maintain this as new stable versions of libuv are released, as it is used in my own projects. The current version is **v1.6.1**.
+The position from the UV maintainers appears to be that there will not be a supported CMake build added. I will try to maintain this as new stable versions of libuv are released, as it is used in my own projects. The current version is **v1.7.5**.
 
 ### Usage
 
@@ -15,7 +15,7 @@ The position from the UV maintainers appears to be that there will not be a supp
 
 ```cmake    
 add_subdirectory(vendor/libuv)
-include_directories(vendor/libuv/libuv-1.6.1/include)
+include_directories(vendor/libuv/include)
 ```
 - The `uv` target is produced by the `CMakeLists.txt` file - it can be linked using the following:
 
@@ -23,7 +23,7 @@ include_directories(vendor/libuv/libuv-1.6.1/include)
 target_link_libraries(my_target uv)
 ```
 
-- By default the tests and benchmarks for libuv are not built. To enable them, set the `LIBUV_BUILD_TESTS` option to `ON`.
+- By default the tests and benchmarks for libuv are built. To disable them, set the `LIBUV_BUILD_TESTS` option to `OFF`.
 
 ### Contributing
 
