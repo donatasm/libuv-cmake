@@ -1,0 +1,8 @@
+CMakeFiles/
+test/
+Makefile
+CMakeCache.txt
+cmake_install.cmake
+run-tests
+run-benchmarks
+*.a

@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 2.8)
 project(libuv C)
 
-option(LIBUV_BUILD_TESTS "builds libuv tests and benchmarks if set to ON" OFF)
+option(LIBUV_BUILD_TESTS "builds libuv tests and benchmarks if set to ON" ON)
 
-set(LIBUVDIR libuv-1.6.1)
+set(LIBUVDIR libuv)
 
 include_directories(${LIBUVDIR}/include ${LIBUVDIR}/src)
 set(SOURCES
@@ -59,7 +59,7 @@ if(WIN32)
         ${LIBUVDIR}/src/win/winapi.c
         ${LIBUVDIR}/src/win/winapi.h
         ${LIBUVDIR}/src/win/winsock.c
-        ${LIBUVDIR}/src/win/winsock.h    
+        ${LIBUVDIR}/src/win/winsock.h
         )
 
     add_library(uv ${SOURCES})
@@ -131,7 +131,7 @@ else()
             ${LIBUVDIR}/src/unix/sunos.c
             )
     endif()
-    
+
     if (${CMAKE_SYSTEM_NAME} MATCHES "AIX")
         add_definitions(-D_ALL_SOURCE -D_XOPEN_SOURCE=500 -D_LINUX_SOURCE_COMPAT)
         set (SOURCES ${SOURCES}
@@ -139,7 +139,7 @@ else()
             )
         find_library(PERFSTAT_LIB NAMES perfstat)
     endif()
-    
+
     if (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD" OR ${CMAKE_SYSTEM_NAME} MATCHES "DragonFlyBSD")
         set (SOURCES ${SOURCES}
             ${LIBUVDIR}/src/unix/freebsd.c
@@ -151,7 +151,7 @@ else()
             ${LIBUVDIR}/src/unix/openbsd.c
             )
     endif()
-    
+
     if (${CMAKE_SYSTEM_NAME} MATCHES "NetBSD")
         set (SOURCES ${SOURCES}
             ${LIBUVDIR}/src/unix/netbsd.c
@@ -169,7 +169,7 @@ else()
         find_library(RT_LIB NAMES rt)
         target_link_libraries(uv ${DL_LIB} ${RT_LIB})
     endif()
-    
+
     if (${CMAKE_SYSTEM_NAME} MATCHES "SunOS")
         find_library(KSTAT_LIB NAMES kstat)
         find_library(NSL_LIB NAMES nsl)
@@ -238,8 +238,10 @@ if(LIBUV_BUILD_TESTS)
         ${LIBUVDIR}/test/test-ping-pong.c
         ${LIBUVDIR}/test/test-pipe-bind-error.c
         ${LIBUVDIR}/test/test-pipe-connect-error.c
+        ${LIBUVDIR}/test/test-pipe-connect-multiple.c
         ${LIBUVDIR}/test/test-pipe-connect-prepare.c
         ${LIBUVDIR}/test/test-pipe-getsockname.c
+        ${LIBUVDIR}/test/test-pipe-pending-instances.c
         ${LIBUVDIR}/test/test-pipe-sendmsg.c
         ${LIBUVDIR}/test/test-pipe-server-close.c
         ${LIBUVDIR}/test/test-pipe-close-stdout-read-stdin.c
@@ -272,6 +274,7 @@ if(LIBUV_BUILD_TESTS)
         ${LIBUVDIR}/test/test-tcp-connect-error.c
         ${LIBUVDIR}/test/test-tcp-connect-timeout.c
         ${LIBUVDIR}/test/test-tcp-connect6-error.c
+        ${LIBUVDIR}/test/test-tcp-create-socket-early.c
         ${LIBUVDIR}/test/test-tcp-open.c
         ${LIBUVDIR}/test/test-tcp-write-to-half-open-connection.c
         ${LIBUVDIR}/test/test-tcp-write-after-connect.c
@@ -294,6 +297,7 @@ if(LIBUV_BUILD_TESTS)
         ${LIBUVDIR}/test/test-timer.c
         ${LIBUVDIR}/test/test-tty.c
         ${LIBUVDIR}/test/test-udp-bind.c
+        ${LIBUVDIR}/test/test-udp-create-socket-early.c
         ${LIBUVDIR}/test/test-udp-dgram-too-big.c
         ${LIBUVDIR}/test/test-udp-ipv6.c
         ${LIBUVDIR}/test/test-udp-open.c
